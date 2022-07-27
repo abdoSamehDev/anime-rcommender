@@ -36,7 +36,7 @@ class SettingsScreen extends StatelessWidget {
                               borderRadius: BorderRadius.circular(4),
                               image: DecorationImage(
                                   image: NetworkImage(''), fit: BoxFit.cover),
-                              color: defaultColor),
+                              color: defaultLightColor),
                         ),
                         onTap: () {},
                       ),
@@ -48,7 +48,7 @@ class SettingsScreen extends StatelessWidget {
                             Theme.of(context).scaffoldBackgroundColor,
                         child: CircleAvatar(
                           radius: 60,
-                          backgroundColor: defaultColor,
+                          backgroundColor: defaultLightColor,
                           backgroundImage: NetworkImage(''),
                         ),
                       ),
@@ -175,7 +175,7 @@ class SettingsScreen extends StatelessWidget {
                               .textTheme
                               .titleLarge
                               ?.copyWith(
-                                  color: defaultColor,
+                                  color: defaultLightColor,
                                   fontWeight: FontWeight.w500),
                         ),
                       ),
