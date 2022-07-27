@@ -36,7 +36,7 @@ class SocialLayoutScreen extends StatelessWidget {
               floatingActionButton: FloatingActionButton(
                 onPressed: (){},
                 tooltip: 'Add Post',
-                backgroundColor: defaultColor,
+                backgroundColor: defaultLightColor,
                 child: const Icon(
                   IconBroken.Paper_Plus,
                   size: 30,

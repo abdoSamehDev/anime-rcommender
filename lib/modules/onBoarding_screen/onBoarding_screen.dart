@@ -140,7 +140,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   controller: boardingController,
                   count: boarding.length,
                   effect: WormEffect(
-                    activeDotColor: defaultColor,
+                    activeDotColor: defaultLightColor,
                     dotColor: Colors.grey,
                     dotWidth: 10,
                     dotHeight: 10,

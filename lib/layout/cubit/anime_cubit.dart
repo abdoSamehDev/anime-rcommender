@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:anime/layout/cubit/anime_states.dart';
@@ -18,17 +19,34 @@ class AnimeCubit extends Cubit<AnimeStates> {
 
   List<List<dynamic>> data = [];
 
+  List jsonData = [];
+
   // This function is triggered when the floating button is pressed
   void loadCSV() async {
     emit(AnimeBuildListLoadingState());
-    await rootBundle.loadString("assets/anime.csv").then((value) {
-      List<List<dynamic>> listData = const CsvToListConverter().convert(value);
-      data = listData;
+    await rootBundle.loadString('assets/anime.csv').then((value) {
+      data = const CsvToListConverter().convert(value);
       emit(AnimeBuildListSuccessState());
     }).catchError((error) {
       print(error.toString());
       emit(AnimeBuildListErrorState(error.toString()));
     });
+  }
+
+  void loadJson() async {
+    emit(AnimeBuildListLoadingState());
+        await rootBundle
+            .loadString('assets/anime.json')
+            .then((value) {
+              jsonData = json.decode(value);
+              print(jsonData.toString());
+              emit(AnimeBuildListSuccessState());
+        })
+            .catchError((error) {
+          print(error.toString());
+          emit(AnimeBuildListErrorState(error.toString()));
+        });
+
   }
 
   final ScrollController controller = ScrollController();
