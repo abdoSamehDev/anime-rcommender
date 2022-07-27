@@ -82,6 +82,7 @@ flutter:
     - assets/images/
     - assets/icon/
     - assets/anime.csv
+    - assets/anime.json
 
   fonts:
     - family: IconBroken

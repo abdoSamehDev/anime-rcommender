@@ -1,5 +1,8 @@
+import 'package:anime/modules/anime_details/anime_details_screen.dart';
+import 'package:anime/modules/search_screen/search_screen.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../layout/cubit/anime_cubit.dart';
 import '../../layout/cubit/anime_states.dart';
@@ -18,13 +21,34 @@ class AnimeListScreen extends StatelessWidget {
       builder: (context, state) {
         var cubit = AnimeCubit.get(context);
         List<List<dynamic>> data = cubit.data;
+        List jsonData = cubit.jsonData;
         return Scaffold(
+          appBar: AppBar(
+            title: Text(
+              'Anime List',
+              style: Theme.of(context).appBarTheme.titleTextStyle,
+            ),
+            actions: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: IconButton(
+                  onPressed: () {
+                    navigateTo(context, SearchScreen());
+                  },
+                  icon: const Icon(
+                    IconBroken.Search,
+                    size: 22,
+                  ),
+                ),
+              ),
+            ],
+          ),
           body: ConditionalBuilder(
-            condition: data.isNotEmpty,
+            condition: jsonData.isNotEmpty,
             builder: (BuildContext context) => Stack(
               alignment: AlignmentDirectional.bottomEnd,
               children: [
-                buildAnimeItem(data, context),
+                buildAnimeItem(jsonData, context),
                 Padding(
                   padding: const EdgeInsets.all(20),
                   child: Row(
@@ -34,6 +58,7 @@ class AnimeListScreen extends StatelessWidget {
                         onPressed: () {
                           cubit.scrollToLatestItem();
                         },
+                        heroTag: 'listDown',
                         child: const Icon(
                           IconBroken.Arrow___Down,
                           color: Colors.white,
@@ -46,6 +71,7 @@ class AnimeListScreen extends StatelessWidget {
                         onPressed: () {
                           cubit.scrollToFirstItem();
                         },
+                        heroTag: 'listUp',
                         child: const Icon(
                           IconBroken.Arrow___Up,
                           color: Colors.white,
@@ -65,12 +91,18 @@ class AnimeListScreen extends StatelessWidget {
   }
 }
 
-Widget buildAnimeItem(List<List> data, context) {
+Widget buildAnimeItem(List data, context) {
   return ListView.separated(
     controller: AnimeCubit.get(context).controller,
     physics: const BouncingScrollPhysics(),
     itemBuilder: (context, index) => InkWell(
-      onTap: () {},
+      onTap: () {
+        navigateTo(
+            context,
+            AnimeDetailsScreen(
+              index: index,
+            ));
+      },
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Row(
@@ -84,7 +116,7 @@ Widget buildAnimeItem(List<List> data, context) {
                 image: DecorationImage(
                   fit: BoxFit.cover,
                   image: NetworkImage(
-                    data[index + 1][27].toString(),
+                    data[index]['main_picture']['large'].toString(),
                   ),
                 ),
               ),
@@ -93,7 +125,7 @@ Widget buildAnimeItem(List<List> data, context) {
               //   width: 120,
               //   fit: BoxFit.cover,
               //   image: NetworkImage(
-              //     data[index + 1][27].toString(),
+              //     data[index][27].toString(),
               //   ),
               // ),
             ),
@@ -105,21 +137,30 @@ Widget buildAnimeItem(List<List> data, context) {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 // mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    data[index + 1][1].toString(),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                        fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
+                  Text(data[index]['title'].toString(),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText1
+                          ?.copyWith(fontSize: 20)
+                      // const TextStyle(
+                      //   fontSize: 20,
+                      //   fontWeight: FontWeight.bold,
+                      // ),
+                      ),
                   const SizedBox(
                     height: 10,
                   ),
-                  Text('Episodes: ${data[index + 1][6].toString()}'),
+                  Text(
+                    'Episodes: ${data[index]['num_episodes'].toString()}',
+                  ),
                   const SizedBox(
                     height: 5,
                   ),
-                  Text('Rank: ${data[index + 1][13].toString()}'),
+                  Text(
+                    'Rank: ${data[index]['rank'].toString()}',
+                  ),
                 ],
               ),
             ),
@@ -133,6 +174,6 @@ Widget buildAnimeItem(List<List> data, context) {
       ),
     ),
     separatorBuilder: (context, index) => mySeparator(),
-    itemCount: 20,
+    itemCount: data.length,
   );
 }

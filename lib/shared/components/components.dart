@@ -75,7 +75,7 @@ Widget defaultTextFormField(
 
 Widget defaultButton(
     {double width = double.infinity,
-      Color backgroundColor = defaultColor,
+      Color backgroundColor = defaultLightColor,
       double radius = 10,
       required void Function()? function,
       required String text,
@@ -108,8 +108,10 @@ AppBar defaultAppBar(
           List<Widget>? action}) =>
     AppBar(
       systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: statusBarColor ?? Colors.white,
-          statusBarIconBrightness: statusBarIconBrightness ?? Brightness.dark
+          statusBarColor: statusBarColor ?? Theme.of(context).appBarTheme.systemOverlayStyle?.statusBarColor,
+          // statusBarColor ?? Colors.white,
+          statusBarIconBrightness: statusBarIconBrightness ?? Theme.of(context).appBarTheme.systemOverlayStyle?.statusBarIconBrightness
+          // statusBarIconBrightness ?? Brightness.dark
       ),
       leading: IconButton(
         icon: Icon(

@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'colors.dart';
 
 ThemeData lightTheme = ThemeData(
-    primarySwatch: defaultColor,
+    primarySwatch: defaultLightColor,
     appBarTheme: const AppBarTheme(
       titleSpacing: 20,
       systemOverlayStyle: SystemUiOverlayStyle(
@@ -25,7 +25,7 @@ ThemeData lightTheme = ThemeData(
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
         type: BottomNavigationBarType.fixed,
-        selectedItemColor: defaultColor,
+        selectedItemColor: defaultLightColor,
         unselectedItemColor: Colors.grey[600],
         elevation: 20,
         backgroundColor: Colors.white
@@ -48,7 +48,7 @@ ThemeData lightTheme = ThemeData(
 );
 
 ThemeData darkTheme = ThemeData(
-    primarySwatch: Colors.deepOrange,
+    primarySwatch: defaultDarkColor,
     appBarTheme: AppBarTheme(
       titleSpacing: 20,
       systemOverlayStyle: const SystemUiOverlayStyle(
@@ -70,7 +70,7 @@ ThemeData darkTheme = ThemeData(
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       type: BottomNavigationBarType.fixed,
       selectedItemColor: Colors.deepOrange,
-      unselectedItemColor: Colors.grey,
+      unselectedItemColor: Colors.grey[500],
       elevation: 20,
       backgroundColor: Colors.grey[900],
     ),
@@ -83,8 +83,11 @@ ThemeData darkTheme = ThemeData(
       ),
       bodyText2: TextStyle(
           fontSize: 14,
-          fontWeight: FontWeight.w600,
+          fontWeight: FontWeight.w500,
           color: Colors.white.withOpacity(0.6)
       ),
-    )
+    ),
+  iconTheme: IconThemeData(
+    color: Colors.grey[500]
+  )
 );
