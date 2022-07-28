@@ -1,3 +1,5 @@
+import 'package:anime/modules/search_screen/search_screen.dart';
+import 'package:anime/shared/components/components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../shared/styles/colors.dart';
@@ -5,8 +7,8 @@ import '../shared/styles/icon_broken.dart';
 import 'cubit/anime_cubit.dart';
 import 'cubit/anime_states.dart';
 
-class SocialLayoutScreen extends StatelessWidget {
-  const SocialLayoutScreen({Key? key}) : super(key: key);
+class AnimeLayoutScreen extends StatelessWidget {
+  const AnimeLayoutScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,48 +24,41 @@ class SocialLayoutScreen extends StatelessWidget {
                 ),
                 actions: [
                   IconButton(
-                    icon: const Icon(IconBroken.Logout),
+                    icon: const Icon(Icons.brightness_4_outlined),
                     onPressed: (){
+                      cubit.toggleDarkMode();
                     },
                   ),
                   IconButton(
-                    icon: const Icon(IconBroken.Notification),
+                    icon: const Icon(IconBroken.Search),
                     onPressed: (){
+                      navigateTo(context, SearchScreen());
                     },
                   ),
+                  // IconButton(
+                  //   icon: const Icon(IconBroken.Notification),
+                  //   onPressed: (){
+                  //   },
+                  // ),
+
                 ],
               ),
-              floatingActionButton: FloatingActionButton(
-                onPressed: (){},
-                tooltip: 'Add Post',
-                backgroundColor: defaultLightColor,
-                child: const Icon(
-                  IconBroken.Paper_Plus,
-                  size: 30,
-                ),
-                // mini: true,
-              ),
-              floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
               bottomNavigationBar: BottomNavigationBar(
                 items: const [
                   BottomNavigationBarItem(
-                    icon: Icon(IconBroken.Home),
-                    label: 'Home',
+                    icon: Icon(IconBroken.Filter),
+                    label: 'Anime List',
 
                   ),
                   BottomNavigationBarItem(
-                    icon: Icon(IconBroken.Chat),
-                    label: 'Chat',
+                    icon: Icon(IconBroken.Heart),
+                    label: 'Favourites',
                   ),
 
                   // BottomNavigationBarItem(
                   //   icon: Icon(Icons.add_circle_outline),
                   //   label: 'Post',
                   // ),
-                  BottomNavigationBarItem(
-                    icon: Icon(IconBroken.User),
-                    label: 'Users',
-                  ),
                   BottomNavigationBarItem(
                     icon: Icon(IconBroken.Setting),
                     label: 'Settings',

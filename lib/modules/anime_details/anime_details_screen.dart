@@ -288,7 +288,7 @@ class AnimeDetailsScreen extends StatelessWidget {
                       const SizedBox(
                         height: 20,
                       ),
-                      defaultButton(
+                      defaultButton( context,
                         function: () {},
                         text: 'Add to Favourite',
                         width: 200,

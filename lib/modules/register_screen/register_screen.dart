@@ -28,7 +28,7 @@ class RegisterScreen extends StatelessWidget {
                 uId = state.uId;
                 showToast(msg: 'Register Successfully!', state: ToastStates.success);
                 AnimeCubit.get(context).currentIndex = 0;
-                navigateAndReplaceTo(context, SocialLayoutScreen());
+                navigateAndReplaceTo(context, AnimeLayoutScreen());
               });
             }
             if(state is RegisterScreenErrorState){
@@ -154,7 +154,7 @@ class RegisterScreen extends StatelessWidget {
                           ConditionalBuilder(
                             condition: state is! RegisterScreenLoadingState,
                             builder: (BuildContext context) {
-                              return defaultButton(
+                              return defaultButton(context,
                                   function: () {
                                     if (key.currentState!.validate()) {
 

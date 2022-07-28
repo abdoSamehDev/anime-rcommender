@@ -73,9 +73,9 @@ Widget defaultTextFormField(
       ),
     );
 
-Widget defaultButton(
+Widget defaultButton(context,
     {double width = double.infinity,
-      Color backgroundColor = defaultLightColor,
+      Color? backgroundColor,
       double radius = 10,
       required void Function()? function,
       required String text,
@@ -83,7 +83,7 @@ Widget defaultButton(
       Color fontColor = Colors.white}) =>
     Container(
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(radius), color: backgroundColor),
+          borderRadius: BorderRadius.circular(radius), color: backgroundColor ?? Theme.of(context).primaryColor),
       width: width,
       // color: Colors.lightBlue,
       child: MaterialButton(
