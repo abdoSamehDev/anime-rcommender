@@ -2,6 +2,9 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:anime/layout/cubit/anime_states.dart';
+import 'package:anime/modules/anime_fav_screen/anime_fav_screen.dart';
+import 'package:anime/modules/anime_list_screen/anime_list_screen.dart';
+import 'package:anime/modules/settings_screen/settings_screen.dart';
 import 'package:bloc/bloc.dart';
 import 'package:csv/csv.dart';
 import 'package:flutter/cupertino.dart';
@@ -11,6 +14,7 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../models/users_model/users_model.dart';
 import '../../shared/components/constants.dart';
+import '../../shared/network/local/chache _helper.dart';
 
 class AnimeCubit extends Cubit<AnimeStates> {
   AnimeCubit() : super(SocialInitialState());
@@ -84,28 +88,36 @@ class AnimeCubit extends Cubit<AnimeStates> {
     emit(AnimeScrollTopListSuccessState());
   }
 
+  bool darkMode = false;
+
+  void toggleDarkMode({bool? fromShared}){
+    if(fromShared != null){
+      darkMode = fromShared;
+      emit(AnimeChangeThemeModeState());
+    }
+    else{
+      darkMode = !darkMode;
+      CacheHelper.setBool(key: 'isDark', value: darkMode);
+      emit(AnimeChangeThemeModeState());
+    }
+  }
+
   int currentIndex = 0;
 
   void changeBotNavBar(index) {
-    if (index == 1) {
-      getUsers();
-    }
-    // if(index == 0){
-    //   getPosts();
-    // }
     currentIndex = index;
-    emit(SocialChangeBotNavBarState());
+    emit(AnimeChangeBotNavBarState());
   }
 
-  List<Widget> screens = [];
-
-  List<String> titles = [
-    'News Feed',
-    'Chat',
-    // 'New Post',
-    'Users',
-    'Settings',
+  List<Widget> screens = [
+    const AnimeListScreen(),
+    const AnimeFavScreen(),
+    const SettingsScreen()
   ];
 
-  void getUsers() {}
+  List<String> titles = [
+    'Anime List',
+    'Favourites',
+    'Settings',
+  ];
 }

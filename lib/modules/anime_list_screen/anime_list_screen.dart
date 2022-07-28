@@ -22,69 +22,47 @@ class AnimeListScreen extends StatelessWidget {
         var cubit = AnimeCubit.get(context);
         List<List<dynamic>> data = cubit.data;
         List jsonData = cubit.jsonData;
-        return Scaffold(
-          appBar: AppBar(
-            title: Text(
-              'Anime List',
-              style: Theme.of(context).appBarTheme.titleTextStyle,
-            ),
-            actions: [
+        return ConditionalBuilder(
+          condition: jsonData.isNotEmpty,
+          builder: (BuildContext context) => Stack(
+            alignment: AlignmentDirectional.bottomEnd,
+            children: [
+              buildAnimeItem(jsonData, context),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: IconButton(
-                  onPressed: () {
-                    navigateTo(context, SearchScreen());
-                  },
-                  icon: const Icon(
-                    IconBroken.Search,
-                    size: 22,
-                  ),
+                padding: const EdgeInsets.all(20),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    FloatingActionButton(
+                      onPressed: () {
+                        cubit.scrollToLatestItem();
+                      },
+                      heroTag: 'listDown',
+                      child: const Icon(
+                        IconBroken.Arrow___Down,
+                        color: Colors.white,
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    FloatingActionButton(
+                      onPressed: () {
+                        cubit.scrollToFirstItem();
+                      },
+                      heroTag: 'listUp',
+                      child: const Icon(
+                        IconBroken.Arrow___Up,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
           ),
-          body: ConditionalBuilder(
-            condition: jsonData.isNotEmpty,
-            builder: (BuildContext context) => Stack(
-              alignment: AlignmentDirectional.bottomEnd,
-              children: [
-                buildAnimeItem(jsonData, context),
-                Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      FloatingActionButton(
-                        onPressed: () {
-                          cubit.scrollToLatestItem();
-                        },
-                        heroTag: 'listDown',
-                        child: const Icon(
-                          IconBroken.Arrow___Down,
-                          color: Colors.white,
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      FloatingActionButton(
-                        onPressed: () {
-                          cubit.scrollToFirstItem();
-                        },
-                        heroTag: 'listUp',
-                        child: const Icon(
-                          IconBroken.Arrow___Up,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            fallback: (BuildContext context) =>
-                const Center(child: CircularProgressIndicator()),
-          ),
+          fallback: (BuildContext context) =>
+              const Center(child: CircularProgressIndicator()),
         );
       },
     );
@@ -167,7 +145,10 @@ Widget buildAnimeItem(List data, context) {
             // const Spacer(),
             IconButton(
               onPressed: () {},
-              icon: const Icon(IconBroken.Heart),
+              icon: const Icon(
+                IconBroken.Heart,
+                // color: defaultLightColor,
+              ),
             )
           ],
         ),

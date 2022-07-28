@@ -27,7 +27,7 @@ class LoginScreen extends StatelessWidget {
               uId = state.uId;
               showToast(msg: 'Login Successfully!', state: ToastStates.success);
               AnimeCubit.get(context).currentIndex = 0;
-              navigateAndReplaceTo(context, SocialLayoutScreen());
+              navigateAndReplaceTo(context, AnimeLayoutScreen());
             });
           } else if (state is LoginScreenErrorState) {
             showToast(msg: state.error, state: ToastStates.error);
@@ -108,7 +108,7 @@ class LoginScreen extends StatelessWidget {
                         ConditionalBuilder(
                           condition: state is! LoginScreenLoadingState,
                           builder: (BuildContext context) {
-                            return defaultButton(
+                            return defaultButton(context,
                                 function: () {},
                                 text: 'Login');
                           },

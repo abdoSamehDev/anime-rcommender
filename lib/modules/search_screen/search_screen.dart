@@ -28,7 +28,7 @@ class SearchScreen extends StatelessWidget {
           body: ConditionalBuilder(
             condition: jsonData.isNotEmpty,
             builder: (context) => SingleChildScrollView(
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               child: Column(
                 children: [
                   Padding(
@@ -41,6 +41,7 @@ class SearchScreen extends StatelessWidget {
                           color: Theme.of(context).iconTheme.color,
                           // size: 50,
                         ),
+                        focusColor: Theme.of(context).primaryColor,
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(
                             color: Theme.of(context).bottomNavigationBarTheme.unselectedItemColor ?? Colors.grey[500]!,
@@ -53,17 +54,18 @@ class SearchScreen extends StatelessWidget {
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20),
                           borderSide: BorderSide(
-                              color: Theme.of(context).bottomNavigationBarTheme.selectedItemColor ?? defaultDarkColor,
+                              color: Theme.of(context).primaryColor,
                               // defaultDarkColor,
                             // color: Color(0xff045c99),
                           ),
                         ),
-                        label: Text('Search'),
+                        label: const Text('Enter Anime Name'),
                         fillColor: Colors.white,
                         labelStyle:
                             Theme.of(context).textTheme.caption?.copyWith(
                                   fontSize: 14,
-                                  color: Colors.white.withOpacity(0.6),
+                                  // fontWeight: FontWeight.w300
+                                  // color: Colors.white.withOpacity(0.6),
                                 ),
                       ),
                     ),

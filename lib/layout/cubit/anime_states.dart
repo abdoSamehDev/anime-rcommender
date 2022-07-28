@@ -16,6 +16,8 @@ class AnimeScrollBotListSuccessState extends AnimeStates{}
 
 class AnimeScrollTopListSuccessState extends AnimeStates{}
 
+class AnimeChangeThemeModeState extends AnimeStates{}
+
 class SocialGetPostsLoadingState extends AnimeStates{}
 
 class SocialGetPostsSuccessState extends AnimeStates{}
@@ -121,7 +123,7 @@ class SocialRemovePostImage extends AnimeStates{}
 
 class SocialRemoveChatImage extends AnimeStates{}
 
-class SocialChangeBotNavBarState extends AnimeStates{}
+class AnimeChangeBotNavBarState extends AnimeStates{}
 
 class SocialAddPostState extends AnimeStates{}
 
